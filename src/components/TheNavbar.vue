@@ -40,8 +40,7 @@
 
         <li class="navbar-user">
           <a href="#">
-            <img class="avatar-small" src="https://pbs.twimg.com/profile_images/881260299420041217/GMVGlDea_400x400.jpg"
-                 alt="">
+            <img class="avatar-small" :src="user.avatar" alt="">
             <span>
                 {{user.name}}
                 <img class="icon-profile" src="../assets/img/arrow-profile.svg" alt="">
