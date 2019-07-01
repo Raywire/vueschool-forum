@@ -12,13 +12,13 @@ Vue.component('AppDate', AppDate)
 Vue.config.productionTip = false
   // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyAxnpK0P-eRpQsoc3DGjS5Ys67n4X9q6XM',
-  authDomain: 'vue-school-forum-e2557.firebaseapp.com',
-  databaseURL: 'https://vue-school-forum-e2557.firebaseio.com',
-  projectId: 'vue-school-forum-e2557',
-  storageBucket: '',
-  messagingSenderId: '143885409337',
-  appId: '1:143885409337:web:f36166147f8bfd74'
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_ID,
+  appId: process.env.FIREBASE_APP_ID
 }
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
