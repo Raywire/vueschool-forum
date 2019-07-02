@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import {removeEmptyProperties} from '@/utils'
 
 export default {
   createPost ({commit, state}, post) {
@@ -92,7 +93,7 @@ export default {
   registerUserWithEmailAndPassword ({dispatch}, {email, name, username, password, avatar = null}) {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(user => {
-        return dispatch('createUser', {id: user.uid, email, name, username, password, avatar})
+        return dispatch('createUser', {id: user.user.uid, email, name, username, password, avatar})
       })
       .then(() => dispatch('fetchAuthUser'))
   },
@@ -164,7 +165,22 @@ export default {
   },
 
   updateUser ({commit}, user) {
-    commit('setUser', {userId: user['.key'], user})
+    const updates = {
+      avatar: user.avatar,
+      username: user.username,
+      name: user.name,
+      bio: user.bio,
+      website: user.website,
+      email: user.email,
+      location: user.location
+    }
+    return new Promise((resolve, reject) => {
+      firebase.database().ref('users').child(user['.key']).update(removeEmptyProperties(updates))
+        .then(() => {
+          commit('setUser', {userId: user['.key'], user})
+          resolve(user)
+        })
+    })
   },
 
   fetchAuthUser ({dispatch, commit}) {
