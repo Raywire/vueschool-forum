@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from '@/store'
 import Router from 'vue-router'
 import Home from '@/pages/PageHome'
 import ThreadShow from '@/pages/PageThreadShow'
@@ -10,7 +11,6 @@ import Profile from '@/pages/PageProfile'
 import Register from '@/pages/PageRegister'
 import SignIn from '@/pages/PageSignIn'
 import NotFound from '@/pages/PageNotFound'
-
 Vue.use(Router)
 
 export default new Router({
@@ -54,7 +54,20 @@ export default new Router({
       path: '/me',
       name: 'Profile',
       component: Profile,
-      props: true
+      props: true,
+      beforeEnter (to, from, next) {
+        if (store.state.authId) {
+          next()
+        } else {
+          next({name: 'Home'})
+        }
+      }
+    },
+    {
+      path: '/me/edit',
+      name: 'ProfileEdit',
+      component: Profile,
+      props: {edit: true}
     },
     {
       path: '/register',
@@ -67,10 +80,12 @@ export default new Router({
       component: SignIn
     },
     {
-      path: '/me/edit',
-      name: 'ProfileEdit',
-      component: Profile,
-      props: {edit: true}
+      path: '/logout',
+      name: 'SignOut',
+      beforeEnter (to, from, next) {
+        store.dispatch('signOut')
+          .then(() => next({name: 'Home'}))
+      }
     },
     {
       path: '*',
