@@ -1,5 +1,6 @@
 import {countObjectProperties, removeEmptyProperties} from '@/utils'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 import Vue from 'vue'
 import {makeAppendChildToParentMutation} from '@/store/assetHelpers'
 
