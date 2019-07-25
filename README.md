@@ -1,4 +1,8 @@
-# vueschool-forum
+## Title
+vueschool-forum
+
+## Description
+An app for creating and viewing events with a guest list
 
 > Awesome full blown mega madness forum
 
